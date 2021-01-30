@@ -28,4 +28,7 @@
 
 3. Once you fork and clone this project, run `npm install` or `npm i` to install the needed node_modules.
 
-4. Now you're ready to start diving in!
+4. Now you're ready to start diving in! If you are looking to eventually create your own server and end points, look at using the below resources:
+   - https://www.twilio.com/blog/react-app-with-node-js-server-proxy
+   - https://www.npmjs.com/package/react-axios
+   - https://www.npmjs.com/package/nodemon
