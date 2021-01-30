@@ -8,6 +8,7 @@ class StateTracker extends Component {
       item: "",
       list: [],
     };
+    this.addItem = this.addItem.bind(this); // arrow functions do this implicitly
   }
 
   handleInput = (e) => {
@@ -18,19 +19,21 @@ class StateTracker extends Component {
     return;
   };
 
-  addItem = () => {
+  addItem() {
     console.log("addItem fired");
     this.setState({
       item: "",
       list: [...this.state.list, this.state.item],
     });
     return;
-  };
+  }
 
   deleteItem = (index) => {
     console.log("delete item fired");
+    let coppiedList = [...this.state.list];
+    coppiedList.splice(index, 1);
     this.setState({
-      list: this.state.list.splice(index, 1),
+      list: coppiedList,
     });
     return;
   };
@@ -40,14 +43,16 @@ class StateTracker extends Component {
     const mappedItems = list.map((e, index) => {
       // return <li key={index}>{e}</li>;
       return (
-        <li>
-          <ItemCard className="card" name={e} />
-          <button onClick={() => this.deleteItem(index)}>Delete Item</button>
-        </li>
+        <ItemCard
+          className="card"
+          name={e}
+          index={index}
+          deleteFunc={this.deleteItem}
+        />
       );
     });
-
     console.log(this.state);
+
     return (
       <div className="App">
         <header className="App-header"> ToDo List</header>
