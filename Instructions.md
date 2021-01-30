@@ -15,7 +15,7 @@
      ```txt
      node -v
      ```
-   - In VS Code, you can setup the " `code .` " command.
+   - In VS Code, you can setup the `code .` command.
      - Open VS Code
      - Run `CMD + SHIFT + P` (or equivalent)
      - In the search bar that appears, type `code`
