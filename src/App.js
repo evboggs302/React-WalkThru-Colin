@@ -4,8 +4,9 @@ import StateTracker from "./Comps/State_Tracker";
 function App() {
   return (
     <div>
-      <StateTracker />
-      <StateTracker />
+      <StateTracker person={"Colin"} />
+      <br />
+      <StateTracker person={"Breezy"} />
     </div>
   );
 }
