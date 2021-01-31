@@ -12,7 +12,6 @@ class StateTracker extends Component {
   }
 
   handleInput = (e) => {
-    // console.log(e.target.value);
     this.setState({
       item: e.target.value,
     });
@@ -37,6 +36,13 @@ class StateTracker extends Component {
     });
     return;
   };
+
+  clearList() {
+    console.log(this);
+    this.setState({
+      list: [],
+    });
+  }
 
   render() {
     const { item, list } = this.state;
@@ -64,7 +70,7 @@ class StateTracker extends Component {
           />
           <div>
             <button onClick={this.addItem}>Add Item</button>
-            <button>Clear List</button>
+            <button onClick={this.clearList}>Clear List</button>
           </div>
         </div>
         <ul>{mappedItems}</ul>
