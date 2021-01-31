@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+/*
+This is not the best use of the useEffect hook as you'll see needless rerenders.
+
+#1 RULE --> Hooks (esp useEffect) should only be used the at top-level.
+        --> this component is small and rendered multiple times in a map which makes it a poor candidate for UseEffect.
+
+*/
+
 export default function ItemCard(props) {
   const { name, index, deleteFunc, updateFunc } = props;
   const [bool, changeBool] = useState(false);
@@ -7,6 +15,23 @@ export default function ItemCard(props) {
   const deleteMe = () => deleteFunc(index);
   const editVal = () => changeBool(!bool);
   const saveVal = (val, index) => updateFunc(itemVal, index);
+
+  // USEEFFECT STRUCTURE
+  // useEffect(() => {}, []);
+
+  // ON MOUNT, and ON UNMOUNT
+  useEffect(() => {
+    console.log("ItemCard mounted to DOM.");
+    return () => {
+      console.log("ItemCard UNmounted to DOM.");
+    };
+  });
+
+  // ON CHANGE
+  useEffect(() => {
+    console.log("EDIT bool changed");
+  }, [bool]);
+
   return (
     <li>
       {bool ? (
