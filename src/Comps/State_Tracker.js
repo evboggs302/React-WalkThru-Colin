@@ -44,16 +44,26 @@ class StateTracker extends Component {
     });
   }
 
+  editItem = (updatedItem, index) => {
+    let coppiedList = [...this.state.list];
+    coppiedList.splice(index, 1, updatedItem);
+    this.setState({
+      list: coppiedList,
+    });
+  };
+
   render() {
     const { item, list } = this.state;
     const mappedItems = list.map((e, index) => {
       // return <li key={index}>{e}</li>;
       return (
         <ItemCard
+          key={index}
           className="card"
           name={e}
           index={index}
           deleteFunc={this.deleteItem}
+          updateFunc={this.editItem}
         />
       );
     });
