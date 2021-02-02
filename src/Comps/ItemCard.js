@@ -64,6 +64,9 @@ export default memo(
       newProps
     );
     // console.log(oldProps.list.indexOf(newProps.name) + 1);
-    return oldProps.list.indexOf(newProps.name + 1);
+    return (
+      oldProps.list.includes(oldProps.name) &&
+      newProps.list.includes(newProps.name)
+    );
   }
 );
