@@ -1,10 +1,10 @@
 import "./App.css";
 import StateTracker from "./Comps/State_Tracker";
 
-function App() {
+function App(props) {
   return (
     <div>
-      <StateTracker person={"Colin"} />
+      <StateTracker person={"Colin"} {...props} />
       <br />
       <StateTracker person={"Breezy"} />
     </div>

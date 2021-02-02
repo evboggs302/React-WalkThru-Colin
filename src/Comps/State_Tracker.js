@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import ItemCard from "./ItemCard";
 
-class StateTracker extends Component {
+// class StateTracker extends Component {
+class StateTracker extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,8 +55,7 @@ class StateTracker extends Component {
 
   render() {
     const { item, list } = this.state;
-    const mappedItems = list.map((e, index) => {
-      // return <li key={index}>{e}</li>;
+    const mappedItems = list.map((e, index, arr) => {
       return (
         <ItemCard
           key={index}
@@ -64,10 +64,10 @@ class StateTracker extends Component {
           index={index}
           deleteFunc={this.deleteItem}
           updateFunc={this.editItem}
+          list={arr}
         />
       );
     });
-    console.log(this.props);
 
     return (
       <div className="App">

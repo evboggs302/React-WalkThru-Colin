@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, memo } from "react";
 
 /*
 This is not the best use of the useEffect hook as you'll see needless rerenders.
@@ -8,47 +8,62 @@ This is not the best use of the useEffect hook as you'll see needless rerenders.
 
 */
 
-export default function ItemCard(props) {
-  const { name, index, deleteFunc, updateFunc } = props;
-  const [bool, changeBool] = useState(false);
-  const [itemVal, updateItem] = useState(name);
-  const deleteMe = () => deleteFunc(index);
-  const editVal = () => changeBool(!bool);
-  const saveVal = (val, index) => updateFunc(itemVal, index);
+///////////////////////////////////////////////////////////////
+/*
 
-  // USEEFFECT STRUCTURE
-  // useEffect(() => {}, []);
+The real benefits of Functional components come when trying to optimize performance. The useCallback
+hook, React.memo(()=>{render}, ()=>{prop comparison}) structure, useMemo hook, and lazy/Suspense
+hooks provide a TON of added functionality and specificity.
 
-  // ON MOUNT, and ON UNMOUNT
-  useEffect(() => {
-    console.log("ItemCard mounted to DOM.");
-    return () => {
-      console.log("ItemCard UNmounted to DOM.");
-    };
-  });
+*/
+///////////////////////////////////////////////////////////////
 
-  // ON CHANGE
-  useEffect(() => {
-    console.log("EDIT bool changed");
-  }, [bool]);
+// export default function ItemCard(props) {
+export default memo(
+  function ItemCard(props) {
+    const { name, index, deleteFunc, updateFunc } = props;
+    console.log("ItemCard ", name.toUpperCase(), " rendered");
+    const [bool, changeBool] = useState(false);
+    const [itemVal, updateItem] = useState(name);
+    // const deleteMe = () => deleteFunc(index); // added in-line below
+    const editVal = useCallback(() => changeBool(!bool), [bool]);
+    const saveVal = (val, index) => updateFunc(itemVal, index);
 
-  return (
-    <li>
-      {bool ? (
-        <input
-          type="text"
-          value={itemVal}
-          onChange={(e) => updateItem(e.target.value)}
-        />
-      ) : (
-        <div>{name}</div>
-      )}
-      <button onClick={deleteMe}>Delete Item</button>
-      {bool ? (
-        <button onClick={saveVal}>Save</button>
-      ) : (
-        <button onClick={editVal}>Edit Item</button>
-      )}
-    </li>
-  );
-}
+    // USEEFFECT STRUCTURE
+    // useEffect(() => {}, []);
+
+    return (
+      <li>
+        {bool ? (
+          <input
+            type="text"
+            value={itemVal}
+            onChange={(e) => updateItem(e.target.value)}
+          />
+        ) : (
+          <div>{name}</div>
+        )}
+        <button
+          onClick={useCallback(() => deleteFunc(index), [deleteFunc, index])}>
+          Delete Item
+        </button>
+        {bool ? (
+          <button onClick={saveVal}>Save</button>
+        ) : (
+          <button onClick={editVal}>Edit Item</button>
+        )}
+      </li>
+    );
+    // }
+  },
+  (oldProps, newProps) => {
+    console.log(
+      "prop comparison fired. \n old: ",
+      oldProps,
+      "\n new: ",
+      newProps
+    );
+    // console.log(oldProps.list.indexOf(newProps.name) + 1);
+    return oldProps.list.indexOf(newProps.name + 1);
+  }
+);
