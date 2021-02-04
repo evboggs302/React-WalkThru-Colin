@@ -9,7 +9,7 @@ class StateTracker extends PureComponent {
       item: "",
       list: [],
     };
-    this.addItem = this.addItem.bind(this); // arrow functions do this lexically
+    this.addItem = this.addItem.bind(this); // arrow functions use "lexical 'this' binding" which automatically binds them to the scope in which they are defined
   }
 
   handleInput = (e) => {
