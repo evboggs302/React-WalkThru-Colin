@@ -13,7 +13,6 @@ class StateTracker extends Component {
   }
 
   handleInput = (e) => {
-    // console.log(e.target.value);
     this.setState({
       item: e.target.value,
     });
