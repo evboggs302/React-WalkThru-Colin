@@ -12,6 +12,10 @@ class StateTracker extends Component {
     this.clearList = this.clearList.bind(this); // arrow functions do this implicitly
   }
 
+  componentDidMount(){
+    console.log("comp mounted")
+  }
+
   handleInput = (e) => {
     this.setState({
       item: e.target.value,
@@ -68,11 +72,11 @@ class StateTracker extends Component {
         />
       );
     });
-    console.log(this.state);
+    console.log(this.props);
 
     return (
       <div className="App">
-        <header className="App-header"> ToDo List</header>
+        <header className="App-header">{this.props.person}'s ToDo List</header>
         <div>
           <input
             placeholder="Enter New Item"
