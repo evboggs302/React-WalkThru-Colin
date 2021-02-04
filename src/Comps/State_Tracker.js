@@ -9,6 +9,7 @@ class StateTracker extends Component {
       list: [],
     };
     this.addItem = this.addItem.bind(this); // arrow functions do this implicitly
+    this.clearList = this.clearList.bind(this); // arrow functions do this implicitly
   }
 
   handleInput = (e) => {
@@ -38,12 +39,20 @@ class StateTracker extends Component {
     return;
   };
 
+  clearList() {
+    this.setState({
+      item: "",
+      list: [],
+    });
+  }
+
   render() {
     const { item, list } = this.state;
     const mappedItems = list.map((e, index) => {
       // return <li key={index}>{e}</li>;
       return (
         <ItemCard
+          key={index}
           className="card"
           name={e}
           index={index}
@@ -64,7 +73,7 @@ class StateTracker extends Component {
           />
           <div>
             <button onClick={this.addItem}>Add Item</button>
-            <button>Clear List</button>
+            <button onClick={this.clearList}>Clear List</button>
           </div>
         </div>
         <ul>{mappedItems}</ul>
