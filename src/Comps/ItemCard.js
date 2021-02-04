@@ -6,7 +6,10 @@ export default function ItemCard(props) {
   const [itemVal, updateItem] = useState(name);
   const deleteMe = () => deleteFunc(index);
   const editVal = () => changeBool(!bool);
-  const saveVal = (val, index) => updateFunc(itemVal, index);
+  const saveVal = async (val, index) => {
+    await updateFunc(itemVal, index);
+    changeBool(false);
+  };
   return (
     <li>
       {bool ? (
