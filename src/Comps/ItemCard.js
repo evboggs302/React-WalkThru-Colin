@@ -27,7 +27,10 @@ export default memo(
     const [itemVal, updateItem] = useState(name);
     // const deleteMe = () => deleteFunc(index); // added in-line below
     const editVal = useCallback(() => changeBool(!bool), [bool]);
-    const saveVal = (val, index) => updateFunc(itemVal, index);
+    const saveVal = (val, index) => async (val, index) => {
+      await updateFunc(itemVal, index);
+      changeBool(false);
+    };
 
     // USEEFFECT STRUCTURE
     // useEffect(() => {}, []);
